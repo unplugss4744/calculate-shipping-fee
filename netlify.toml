@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# /api/foo → /.netlify/functions/foo 로 리다이렉트
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback (React Router 같은 클라이언트 라우팅 대비)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
